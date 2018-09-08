@@ -7,9 +7,15 @@ require 'faker'
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-100.times do 
+150.times do 
   User.create(
     username: Faker::Internet.username(5..16),
     password: Faker::Internet.password(8, 30)
+  )
+end
+
+400.times do
+  Post.create!(
+    body: Faker::FamousLastWords.last_words
   )
 end
