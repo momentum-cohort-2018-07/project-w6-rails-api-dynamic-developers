@@ -6,10 +6,17 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    render json: @user
   end
 
-  def new
-    @user = User.new
+  def create
+    @user = User.new(user_params)
+
+      if @user.save
+        render json: @user, status: :created, location: @user
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
   end
 
   def edit
@@ -18,25 +25,10 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])  
-
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'user was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
-    end
-  end
-
-  def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @user.update
+      render json: @user, status: :created, location: @user
+    else
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
@@ -47,6 +39,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :password, :api_token)
+    params.require(:user).permit(:username, :password_digest)
   end
 end
