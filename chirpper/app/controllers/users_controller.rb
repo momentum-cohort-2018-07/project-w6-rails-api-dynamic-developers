@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  skip_before_action :verify_authentication
+
   def index
     @user = User.all
     render json: @user
@@ -41,4 +44,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :password_digest)
   end
+
 end
