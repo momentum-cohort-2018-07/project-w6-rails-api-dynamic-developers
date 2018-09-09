@@ -15,7 +15,16 @@ require 'faker'
 end
 
 400.times do
-  Post.create!(
-    body: Faker::FamousLastWords.last_words
+  Post.create(
+    body: Faker::FamousLastWords.last_words,
+    user_id: 1 + rand(100)
+  )
+end
+
+200.times do
+  Comment.create(
+    body: Faker::Friends.quote,
+    user_id: 1 + rand(100),
+    post_id: 1 + rand(100)
   )
 end
