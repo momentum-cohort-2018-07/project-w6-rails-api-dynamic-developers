@@ -138,7 +138,6 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_follower
-
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
