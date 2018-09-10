@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+  skip_before_action :verify_authentication
+
+
   def index
     @user = User.all
     render json: @user
